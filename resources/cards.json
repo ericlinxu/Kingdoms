@@ -1,0 +1,12 @@
+{
+  "hit": {
+    "health": -1,
+    "match": "dodge"
+  },
+  "dodge": {
+    "health": 1
+  },
+  "heal": {
+    "health": 1
+  }
+}

@@ -5,6 +5,12 @@
 
 namespace mylibrary {
 
+class Player {
+ private:
+  int health, max_cards;
+
+};
+
 }  // namespace mylibrary
 
 

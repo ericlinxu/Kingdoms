@@ -137,6 +137,7 @@ function( ci_make_library )
 
     target_include_directories( ${ARG_LIBRARY_NAME} PUBLIC ${ARG_INCLUDES} )
     target_link_libraries( ${ARG_LIBRARY_NAME} cinder ${ARG_LIBRARIES} )
+    target_link_libraries( ${ARG_LIBRARY_NAME} nlohmann_json ${ARG_LIBRARIES} )
 
     if( MSVC )
         # Ignore Specific Default Libraries for Debug build

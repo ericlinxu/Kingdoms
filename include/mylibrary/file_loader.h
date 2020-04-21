@@ -6,10 +6,13 @@
 #define FINALPROJECT_FILE_LOADER_H
 
 #include <nlohmann/json.hpp>
+#include <string>
+
+#include "card.h"
 
 namespace mylibrary {
 
-nlohmann::json LoadCards(string file_path);
+std::vector<mylibrary::Card> LoadCards(const std::string& file_path);
 
 }
 

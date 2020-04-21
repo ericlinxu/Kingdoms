@@ -1,12 +1,19 @@
 {
-  "hit": {
-    "health": -1,
-    "match": "dodge"
-  },
-  "dodge": {
-    "health": 1
-  },
-  "heal": {
-    "health": 1
-  }
+  "cards": [
+    {
+      "name": "hit",
+      "health": -1,
+      "match": "dodge"
+    },
+    {
+      "name": "dodge",
+      "health": 1,
+      "match": ""
+    },
+    {
+      "name": "heal",
+      "health": 1,
+      "match": ""
+    }
+  ]
 }

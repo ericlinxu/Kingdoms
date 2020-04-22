@@ -15,11 +15,10 @@ Engine::Engine() {
     players.push_back(player);
   }
   cards_used = mylibrary::LoadCards("resources/cards.json");
-  Setup();
-}
 
-void Engine::Setup() {
+  //Setup
   CreateDeck();
+  DistributeCards();
 }
 
 void Engine::CreateDeck() {
@@ -30,6 +29,17 @@ void Engine::CreateDeck() {
   }
   std::shuffle(deck.begin(), deck.end()
       , std::mt19937(std::random_device()()));
+}
+
+void Engine::DistributeCards() {
+  for (mylibrary::Player player : players) {
+    std::vector<mylibrary::Card> hand;
+    for (int i = 0; i < MAX_HEALTH; i++) {
+      hand.push_back(deck[0]);
+      deck.erase(deck.begin());
+    }
+    player.ReceiveHand(hand);
+  }
 }
 
 }

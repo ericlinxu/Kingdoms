@@ -17,11 +17,12 @@ namespace mylibrary {
 class Engine {
 
  private:
-  void Setup();
   void CreateDeck();
+  void DistributeCards();
   vector<mylibrary::Card> cards_used;
   vector<mylibrary::Card> deck;
   vector<mylibrary::Player> players;
+  mylibrary::Card played_card;
 
  public:
   const int NUM_PLAYERS = 2;

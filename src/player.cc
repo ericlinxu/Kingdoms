@@ -4,4 +4,8 @@
 
 namespace mylibrary {
 
+Player::Player(int player_health) {
+  health = player_health;
+}
+
 }  // namespace mylibrary

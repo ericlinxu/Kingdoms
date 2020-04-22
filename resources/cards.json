@@ -3,17 +3,20 @@
     {
       "name": "hit",
       "health": -1,
-      "match": "dodge"
+      "match": "dodge",
+      "number": 30
     },
     {
       "name": "dodge",
       "health": 1,
-      "match": ""
+      "match": "",
+      "number": 24
     },
     {
       "name": "heal",
       "health": 1,
-      "match": ""
+      "match": "",
+      "number": 12
     }
   ]
 }

@@ -12,11 +12,15 @@ namespace mylibrary {
 
 class Card {
  private:
-  int health;
+  int health, number;
   string name, match;
 
  public:
-  Card(int heal, string& name, string& match);
+  Card(int heal, string& name, string& match, int number);
+  int GetHealth();
+  string GetMatch();
+  string GetName();
+  int GetNumber();
 };
 
 }

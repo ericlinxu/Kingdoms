@@ -7,6 +7,9 @@
 
 ####4/21/20
 1. Wrote up basic structure for Player class
-2. Started on the Game Engine - Set up the Game at its inital state
+2. Started on the Game Engine - Set up the Game at its initial state
 
+####4/23/20
+1. Added functionality to allow players to draw cards at the beginning of 
+their rounds
 ---

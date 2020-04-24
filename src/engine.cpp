@@ -19,6 +19,9 @@ Engine::Engine() {
   //Setup
   CreateDeck();
   DistributeCards();
+
+  //Start Game
+  PlayRounds();
 }
 
 void Engine::CreateDeck() {
@@ -39,6 +42,19 @@ void Engine::DistributeCards() {
       deck.erase(deck.begin());
     }
     player.ReceiveHand(hand);
+  }
+}
+
+void Engine::PlayRounds() {
+  for (mylibrary::Player player : players) {
+
+    //Each player draws specific amount of cards at the beginning of their round
+    //Amount of cards drawn can be changed in the header file
+    for (int i = 0; i < DRAW_CARDS; i++) {
+      player.DrawCards(deck[0]);
+      deck.erase(deck.begin());
+    }
+
   }
 }
 

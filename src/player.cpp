@@ -12,4 +12,8 @@ Player::Player(int player_health) {
 void Player::ReceiveHand(std::vector<mylibrary::Card>& cards) {
   hand = cards;
 }
+
+void Player::DrawCards(mylibrary::Card& card) {
+  hand.push_back(card);
+}
 }  // namespace mylibrary

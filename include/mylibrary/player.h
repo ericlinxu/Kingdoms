@@ -15,6 +15,7 @@ class Player {
  public:
   Player(int player_health);
   void ReceiveHand(std::vector<mylibrary::Card>& cards);
+  void DrawCards(mylibrary::Card& card);
 };
 
 }  // namespace mylibrary

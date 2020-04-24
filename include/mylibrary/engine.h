@@ -19,16 +19,18 @@ class Engine {
  private:
   void CreateDeck();
   void DistributeCards();
+  void PlayRounds();
   vector<mylibrary::Card> cards_used;
   vector<mylibrary::Card> deck;
   vector<mylibrary::Player> players;
   mylibrary::Card played_card;
 
- public:
   const int NUM_PLAYERS = 2;
   const int MAX_HEALTH = 3;
-  Engine();
+  const int DRAW_CARDS = 1;
 
+ public:
+  Engine();
 };
 
 }

@@ -3,6 +3,8 @@
 //
 
 #include "mylibrary/engine.h"
+
+#include <cinder/app/AppBase.h>
 #include <mylibrary/file_loader.h>
 
 #include <random>
@@ -14,7 +16,8 @@ Engine::Engine() {
     mylibrary::Player player(MAX_HEALTH);
     players.push_back(player);
   }
-  cards_used = mylibrary::LoadCards("resources/cards.json");
+  cards_used = mylibrary::LoadCards(
+      cinder::app::getAssetPath("cards.json").string());
 
   //Setup
   CreateDeck();

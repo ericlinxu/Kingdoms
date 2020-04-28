@@ -9,13 +9,17 @@ namespace mylibrary {
 
 class Player {
  private:
-  int health, max_cards;
-  std::vector<mylibrary::Card> hand;
+  int health, max_cards, position;
+
 
  public:
-  Player(int player_health);
+  Player(int player_health, int position);
   void ReceiveHand(std::vector<mylibrary::Card>& cards);
   void DrawCards(mylibrary::Card& card);
+  int GetPosition();
+
+  std::vector<mylibrary::Card> hand;
+
 };
 
 }  // namespace mylibrary

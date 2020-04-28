@@ -23,6 +23,7 @@ class Card {
   string GetName();
   int GetNumber();
   string GetImage();
+  void reset();
 };
 
 }

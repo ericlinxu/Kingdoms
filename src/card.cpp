@@ -23,6 +23,10 @@ Card::Card() {
   image = "";
 }
 
+void Card::reset() {
+  Card();
+}
+
 int Card::GetHealth() {
   return health;
 }

@@ -21,18 +21,19 @@ class Engine {
   void DistributeCards();
   void PlayRounds();
   vector<mylibrary::Card> cards_used;
-  vector<mylibrary::Card> deck;
   vector<mylibrary::Player> players;
   //mylibrary::Card played_card;
 
-  int current_player;
+
   const int NUM_PLAYERS = 2;
   const int MAX_HEALTH = 3;
   const int DRAW_CARDS = 1;
 
  public:
   Engine();
-  mylibrary::Player GetCurrPlayer();
+  mylibrary::Player& GetPlayer(int pos);
+  int current_player = 0;
+  vector<mylibrary::Card> deck;
 };
 
 }

@@ -24,18 +24,16 @@ class MyApp : public cinder::app::App {
  private:
 
   void DrawBackground() const;
-  void DrawPlayer();
+  void DrawCurrentPlayer();
+  void DrawOpponent();
+  void DrawGeneralInfo();
 
   const int num_players = 2;
   mylibrary::Engine engine;
   cinder::gl::Texture2dRef background = cinder::gl::Texture2d::create(
       loadImage( loadAsset("background.jpeg")));
-  cinder::gl::Texture2dRef hit = cinder::gl::Texture2d::create(
-      loadImage( loadAsset("hit.png")));
-  cinder::gl::Texture2dRef dodge = cinder::gl::Texture2d::create(
-      loadImage( loadAsset("dodge.png")));
-  cinder::gl::Texture2dRef heal = cinder::gl::Texture2d::create(
-      loadImage( loadAsset("heal.png")));
+  cinder::gl::Texture2dRef health = cinder::gl::Texture2d::create(
+      loadImage( loadAsset("health.png")));
 };
 
 }  // namespace myapp

@@ -17,14 +17,14 @@ Engine::Engine() {
     players.push_back(player);
   }
   cards_used = mylibrary::LoadCards(
-      cinder::app::getAssetPath("cards.json").string());
+      cinder::app::getAssetPath("cards/cards.json").string());
 
   //Setup
   CreateDeck();
   DistributeCards();
 
   //Start Game
-  PlayRounds();
+  //PlayRounds();
 }
 
 void Engine::CreateDeck() {
@@ -59,8 +59,8 @@ void Engine::PlayRounds() {
   }
 }
 
-mylibrary::Player Engine::GetCurrPlayer() {
-  return players[current_player];
+mylibrary::Player& Engine::GetPlayer(int pos) {
+  return players[pos];
 }
 
 }

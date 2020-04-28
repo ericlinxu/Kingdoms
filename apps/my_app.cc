@@ -32,12 +32,26 @@ void MyApp::draw() {
   cinder::gl::clear();
   DrawCurrentPlayer(engine.GetPlayer(engine.current_player));
   DrawOpponent();
+  DrawPlayedCard();
   DrawBackground();
 }
 
 void MyApp::keyDown(KeyEvent event) {}
 
-void MyApp::mouseDown(MouseEvent event) {}
+void MyApp::mouseDown(MouseEvent event) {
+  mylibrary::Player current_player = engine.GetPlayer(engine.current_player);
+  if (event.isRightDown()) {
+    for (int i = 0; i < current_player.hand.size(); i++) {
+      if (event.getPos().x >= bounds[i]["coordinates"][0] &&
+          event.getPos().y >= bounds[i]["coordinates"][1] &&
+          event.getPos().x <= bounds[i]["coordinates"][2] &&
+          event.getPos().y <= bounds[i]["coordinates"][3]) {
+        engine.PlayCard(current_player.hand[i]);
+        break;
+      }
+    }
+  }
+}
 
 //Taken from Snake
 template <typename C>
@@ -79,12 +93,11 @@ void myapp::MyApp::DrawCurrentPlayer(mylibrary::Player& current) {
     coords.push_back(location.x);
     coords.push_back(location.y);
     coords.push_back(location.x + image->getSize().x);
-    coords.push_back(location.x + image->getSize().y);
+    coords.push_back(location.y + image->getSize().y);
     GenerateBounds(coords, i);
 
     location = {location.x - 110, location.y};
   }
-
 
   Color color = {1, 1, 1};
   cinder::ivec2 size = {100, 24};
@@ -105,17 +118,30 @@ void myapp::MyApp::DrawCurrentPlayer(mylibrary::Player& current) {
 }
 
 void myapp::MyApp::DrawOpponent() {
-  mylibrary::Player opponent = engine.GetPlayer(0);
-  if (engine.current_player == 0) {
-    opponent = engine.GetPlayer(1);
-  }
-
+  mylibrary::Player opponent = engine.GetOpponent(0);
   Color color = {1, 1, 1};
   cinder::ivec2 size = {130, 70};
   cinder::vec2 loc = {680, 80};
   PrintText("Opponent\nHealth: " + std::to_string(opponent.GetHealth())
     + "\n# of Cards: " + std::to_string(opponent.hand.size())
     , color, size, loc);
+}
+
+void myapp::MyApp::DrawPlayedCard() {
+  if (engine.played_card.GetName().empty()) {
+    Color color = {1, 1, 1};
+    cinder::ivec2 size = {190, 24};
+    PrintText("No Cards Played", color, size, getWindowCenter());
+  } else {
+    cinder::ivec2 location = {350, 300};
+    cinder::gl::Texture2dRef image = cinder::gl::Texture2d::create(
+        loadImage( loadAsset(engine.played_card.GetImage())));
+    cinder::gl::draw(image, location);
+
+    Color color = {1, 1, 1};
+    cinder::ivec2 size = {100, 24};
+    PrintText("Played Card", color, size, getWindowCenter());
+  }
 }
 
 void myapp::MyApp::DrawGeneralInfo() {

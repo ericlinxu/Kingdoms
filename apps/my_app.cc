@@ -30,7 +30,7 @@ void MyApp::update() {}
 void MyApp::draw() {
   cinder::gl::enableAlphaBlending();
   cinder::gl::clear();
-  DrawCurrentPlayer();
+  DrawCurrentPlayer(engine.GetPlayer(engine.current_player));
   DrawOpponent();
   DrawBackground();
 }
@@ -65,17 +65,26 @@ void myapp::MyApp::DrawBackground() const {
   cinder::gl::draw(background);
 }
 
-void myapp::MyApp::DrawCurrentPlayer() {
-  mylibrary::Player current = engine.GetPlayer(engine.current_player);
-
+void myapp::MyApp::DrawCurrentPlayer(mylibrary::Player& current) {
   //Cards to show
   cinder::vec2 location = {460, 650};
-  for (mylibrary::Card card : current.hand) {
+  std::vector<int> coords;
+  for (int i = 0; i < current.hand.size(); i++) {
     cinder::gl::Texture2dRef image = cinder::gl::Texture2d::create(
-      loadImage( loadAsset(card.GetImage())));
+      loadImage( loadAsset(current.hand[i].GetImage())));
     cinder::gl::draw(image, location);
+
+    //Get image coordinates
+    coords.clear();
+    coords.push_back(location.x);
+    coords.push_back(location.y);
+    coords.push_back(location.x + image->getSize().x);
+    coords.push_back(location.x + image->getSize().y);
+    GenerateBounds(coords, i);
+
     location = {location.x - 110, location.y};
   }
+
 
   Color color = {1, 1, 1};
   cinder::ivec2 size = {100, 24};
@@ -111,5 +120,27 @@ void myapp::MyApp::DrawOpponent() {
 
 void myapp::MyApp::DrawGeneralInfo() {
 
+}
+
+/**
+ * Gets the bounds of each of the cards the player has on the UI
+ * Puts these bounds into a json object in the form of [a, b, c, d]
+ *
+ *            (a,b)P++++++++     P stands for Point
+ *                 +       +
+ *                 +       +
+ *                 ++++++++P(c,d)
+ *
+ * @param coords: vector of coordinates for the current image
+ * @param index: index of the current image so it can match with the index of
+ *               the card in the hand on the current player
+ *
+ * @note This is mostly used for the MouseDown(Event) method to locate whether
+ *       or not the user is pressing on the image
+ */
+void myapp::MyApp::GenerateBounds(std::vector<int> coords, int index) {
+  for (int j = 0; j < 4; j++) {
+    bounds[std::to_string(index)]["coordinates"][j] = coords[j];
+  }
 }
 }

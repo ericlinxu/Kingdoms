@@ -9,6 +9,8 @@
 #include <cinder/ImageIo.h>
 #include <cinder/gl/gl.h>
 
+#include <nlohmann/json.hpp>
+
 namespace myapp {
 
 class MyApp : public cinder::app::App {
@@ -24,12 +26,14 @@ class MyApp : public cinder::app::App {
  private:
 
   void DrawBackground() const;
-  void DrawCurrentPlayer();
+  void DrawCurrentPlayer(mylibrary::Player& current);
   void DrawOpponent();
   void DrawGeneralInfo();
+  void GenerateBounds(std::vector<int> coords, int index);
 
   const int num_players = 2;
   mylibrary::Engine engine;
+  nlohmann::json bounds;
   cinder::gl::Texture2dRef background = cinder::gl::Texture2d::create(
       loadImage( loadAsset("background.png")));
   cinder::gl::Texture2dRef health = cinder::gl::Texture2d::create(

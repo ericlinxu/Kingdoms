@@ -10,12 +10,15 @@ namespace mylibrary {
 class Player {
  private:
   int health, max_cards, position;
+  const int MAX_HEALTH = 3;
 
 
  public:
   Player(int player_health, int position);
   void ReceiveHand(std::vector<mylibrary::Card>& cards);
   void DrawCards(mylibrary::Card& card);
+  bool PlayCard(mylibrary::Card& card, bool responding);
+  void RemoveCard(mylibrary::Card& card);
   int GetPosition();
   int GetHealth();
 

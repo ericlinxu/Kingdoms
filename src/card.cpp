@@ -15,6 +15,14 @@ Card::Card(int card_health, string& card_name, string& card_match
   image = image_path;
 }
 
+Card::Card() {
+  health = 0;
+  number = 0;
+  name = "";
+  match = "";
+  image = "";
+}
+
 int Card::GetHealth() {
   return health;
 }

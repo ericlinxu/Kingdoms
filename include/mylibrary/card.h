@@ -16,6 +16,7 @@ class Card {
   string name, match, image;
 
  public:
+  Card();
   Card(int heal, string& name, string& match, int number, string& image);
   int GetHealth();
   string GetMatch();

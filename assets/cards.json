@@ -4,19 +4,22 @@
       "name": "hit",
       "health": -1,
       "match": "dodge",
-      "number": 30
+      "number": 30,
+      "image": "hit.png"
     },
     {
       "name": "dodge",
       "health": 1,
       "match": "",
-      "number": 24
+      "number": 24,
+      "image": "dodge.png"
     },
     {
       "name": "heal",
       "health": 1,
       "match": "",
-      "number": 12
+      "number": 12,
+      "image": "heal.png"
     }
   ]
 }

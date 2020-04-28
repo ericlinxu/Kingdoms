@@ -13,14 +13,15 @@ namespace mylibrary {
 class Card {
  private:
   int health, number;
-  string name, match;
+  string name, match, image;
 
  public:
-  Card(int heal, string& name, string& match, int number);
+  Card(int heal, string& name, string& match, int number, string& image);
   int GetHealth();
   string GetMatch();
   string GetName();
   int GetNumber();
+  string GetImage();
 };
 
 }

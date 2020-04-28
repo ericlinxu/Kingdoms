@@ -26,7 +26,9 @@ std::vector<mylibrary::Card> LoadCards(const std::string& file_path) {
   for (const auto& card : file["cards"]) {
     string name = card.at("name");
     string match = card.at("match");
-    mylibrary::Card element(card.at("health"), name, match, card.at("number"));
+    string image = card.at("image");
+    mylibrary::Card element(card.at("health"), name, match
+        , card.at("number"), image);
     cards.push_back(element);
   }
 

@@ -7,11 +7,12 @@
 namespace mylibrary {
 
 Card::Card(int card_health, string& card_name, string& card_match
-    , int card_number) {
+    , int card_number, string& image_path) {
   health = card_health;
   match = card_match;
   name = card_name;
   number = card_number;
+  image = image_path;
 }
 
 int Card::GetHealth() {
@@ -26,7 +27,11 @@ string Card::GetMatch() {
   return match;
 }
 
-string Card::GetNumber() {
+int Card::GetNumber() {
   return number;
+}
+
+string Card::GetImage() {
+  return image;
 }
 }

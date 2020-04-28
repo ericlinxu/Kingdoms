@@ -21,4 +21,8 @@ void Player::DrawCards(mylibrary::Card& card) {
 int Player::GetPosition() {
   return position;
 }
+
+int Player::GetHealth() {
+  return health;
+}
 }  // namespace mylibrary

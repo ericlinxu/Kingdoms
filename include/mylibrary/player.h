@@ -17,6 +17,7 @@ class Player {
   void ReceiveHand(std::vector<mylibrary::Card>& cards);
   void DrawCards(mylibrary::Card& card);
   int GetPosition();
+  int GetHealth();
 
   std::vector<mylibrary::Card> hand;
 

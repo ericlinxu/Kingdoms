@@ -50,7 +50,7 @@ void PrintText(const string& text, const C& color, const cinder::ivec2& size,
       .font(cinder::Font("Arial", 20))
       .size(size)
       .color(color)
-      .backgroundColor(ColorA(0.505, 0.509, 0.454, 1))
+      .backgroundColor(ColorA(0.502, 0.502, 0.502, 1))
       .text(text);
 
   const auto box_size = box.getSize();

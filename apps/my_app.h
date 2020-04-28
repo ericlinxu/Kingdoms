@@ -31,7 +31,7 @@ class MyApp : public cinder::app::App {
   const int num_players = 2;
   mylibrary::Engine engine;
   cinder::gl::Texture2dRef background = cinder::gl::Texture2d::create(
-      loadImage( loadAsset("background.jpeg")));
+      loadImage( loadAsset("background.png")));
   cinder::gl::Texture2dRef health = cinder::gl::Texture2d::create(
       loadImage( loadAsset("health.png")));
 };

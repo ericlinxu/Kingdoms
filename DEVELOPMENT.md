@@ -12,4 +12,9 @@
 ####4/23/20
 1. Added functionality to allow players to draw cards at the beginning of 
 their rounds
+
+####4/27/20
+1. Added basic UI that is synced with engine
+2. Added more information to Card and Player classes
+
 ---

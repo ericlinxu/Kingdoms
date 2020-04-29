@@ -66,15 +66,26 @@ void Engine::PlayRounds() {
 }
 
 void Engine::PlayAction() {
-  Player player = GetPlayer(previous_player);
-  if (player.PlayCard(played_card, responding)) {
-    discard = played_card;
-    if (discard.GetName() == "hit") {
-      Dodge();
+  Player& player = GetPlayer(current_player);
+  Player& opponent = GetOpponent(current_player);
+  if (responding) {
+    if (opponent.PlayCard(played_card, responding)) {
       responding = false;
+      discard = played_card;
+      played_card.reset();
     }
   } else {
-    played_card.reset();
+    if (player.PlayCard(played_card, responding)) {
+      discard = played_card;
+      played_card.reset();
+      if (discard.GetName() == "hit") {
+        responding = true;
+      } else {
+        responding = false;
+      }
+    } else {
+      played_card.reset();
+    }
   }
 }
 
@@ -85,11 +96,27 @@ void Engine::Dodge() {
   if (player.PlayCard(played_card, responding)) {
     discard = played_card;
     played_card.reset();
+    current_player = previous_player;
   }
 }
 
 void Engine::PlayCard(Card& card) {
   played_card = card;
+}
+
+void Engine::SwitchPlayer() {
+  if (current_player == 0) {
+    current_player = 1;
+  } else {
+    current_player = 0;
+  }
+}
+
+void Engine::UnableToDodge() {
+  Player& opponent = GetOpponent(current_player);
+  responding = false;
+  opponent.SetHealth(opponent.GetHealth() + discard.GetHealth());
+  discard.reset();
 }
 
 void Engine::CheckEndGame() {

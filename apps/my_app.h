@@ -29,6 +29,7 @@ class MyApp : public cinder::app::App {
   void DrawCurrentPlayer(mylibrary::Player& current);
   void DrawOpponent();
   void DrawPlayedCard();
+  void DrawTurn(int position);
   void DrawGeneralInfo();
   void GenerateBounds(std::vector<int>& coords);
 

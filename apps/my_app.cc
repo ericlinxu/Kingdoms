@@ -32,7 +32,15 @@ void MyApp::update() {
 void MyApp::draw() {
   cinder::gl::enableAlphaBlending();
   cinder::gl::clear();
-  DrawCurrentPlayer(engine.GetPlayer(engine.current_player));
+
+  if (engine.responding) {
+    mylibrary::Player opponent = engine.GetOpponent(engine.current_player);
+    DrawCurrentPlayer(opponent);
+    DrawTurn(opponent.GetPosition() + 1);
+  } else {
+    DrawCurrentPlayer(engine.GetPlayer(engine.current_player));
+    DrawTurn(engine.current_player + 1);
+  }
   DrawOpponent();
   DrawPlayedCard();
   DrawGeneralInfo();
@@ -43,6 +51,9 @@ void MyApp::keyDown(KeyEvent event) {}
 
 void MyApp::mouseDown(MouseEvent event) {
   mylibrary::Player current_player = engine.GetPlayer(engine.current_player);
+  if (engine.responding) {
+    current_player = engine.GetOpponent(engine.current_player);
+  }
   if (event.isLeftDown()) {
     for (int i = 0; i < current_player.hand.size(); i++) {
       if (event.getX() >= bounds[i][0] &&
@@ -52,8 +63,15 @@ void MyApp::mouseDown(MouseEvent event) {
         engine.PlayCard(current_player.hand[i]);
       }
     }
-  } else {
-    return;
+    //Coordinates for the End button
+    if (event.getX() >= 340 && event.getY() >= 30 && event.getY() <= 130
+        && event.getX() <= 440) {
+      if (engine.discard.GetName() != "hit") {
+        engine.SwitchPlayer();
+      } else {
+        engine.UnableToDodge();
+      }
+    }
   }
 }
 
@@ -85,7 +103,7 @@ void myapp::MyApp::DrawBackground() const {
 
 void myapp::MyApp::DrawCurrentPlayer(mylibrary::Player& current) {
   //Cards to show
-  cinder::vec2 location = {460, 650};
+  cinder::vec2 location = {450, 650};
   std::vector<int> coords;
   for (int i = 0; i < current.hand.size(); i++) {
     cinder::gl::Texture2dRef image = cinder::gl::Texture2d::create(
@@ -105,11 +123,11 @@ void myapp::MyApp::DrawCurrentPlayer(mylibrary::Player& current) {
 
   Color color = {1, 1, 1};
   cinder::ivec2 size = {100, 24};
-  cinder::vec2 loc = {400, 630};
+  cinder::vec2 loc = {390, 630};
   PrintText("My Cards", color, size, loc);
 
   //Health to show
-  location = {450, 560};
+  location = {440, 560};
   for (int i = 0; i < current.GetHealth(); i++) {
     cinder::gl::draw(health, location);
     location = {location.x - 70, location.y};
@@ -117,15 +135,23 @@ void myapp::MyApp::DrawCurrentPlayer(mylibrary::Player& current) {
 
   color = {1, 1, 1};
   size = {100, 24};
-  loc = {400, 530};
+  loc = {390, 530};
   PrintText("My Health", color, size, loc);
+}
+
+void myapp::MyApp::DrawTurn(int position) {
+  Color color = {1, 1, 1};
+  cinder::vec2 size = {150, 24};
+  cinder::vec2 loc = {100, 630};
+  PrintText("Player " + std::to_string(position) + "'s Turn"
+      , color, size, loc);
 }
 
 void myapp::MyApp::DrawOpponent() {
   mylibrary::Player opponent = engine.GetOpponent(engine.current_player);
   Color color = {1, 1, 1};
   cinder::ivec2 size = {130, 70};
-  cinder::vec2 loc = {680, 80};
+  cinder::vec2 loc = {670, 80};
   PrintText("Opponent\nHealth: " + std::to_string(opponent.GetHealth())
     + "\n# of Cards: " + std::to_string(opponent.hand.size())
     , color, size, loc);
@@ -135,22 +161,23 @@ void myapp::MyApp::DrawPlayedCard() {
   if (engine.discard.GetName().empty()) {
     Color color = {1, 1, 1};
     cinder::ivec2 size = {190, 24};
-    PrintText("No Cards Played", color, size, getWindowCenter());
+    cinder::ivec2 location = {390, 350};
+    PrintText("No Cards Played", color, size, location);
   } else {
-    cinder::ivec2 location = {350, 300};
+    cinder::ivec2 location = {340, 300};
     cinder::gl::Texture2dRef image = cinder::gl::Texture2d::create(
         loadImage( loadAsset(engine.discard.GetImage())));
     cinder::gl::draw(image, location);
 
     Color color = {1, 1, 1};
     cinder::ivec2 size = {130, 24};
-    location = {400, 270};
+    location = {390, 270};
     PrintText("Played Card", color, size, location);
   }
 }
 
 void myapp::MyApp::DrawGeneralInfo() {
-  cinder::vec2 location = {350, 30};
+  cinder::vec2 location = {340, 30};
   cinder::gl::draw(end, location);
 }
 

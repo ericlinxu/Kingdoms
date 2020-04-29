@@ -24,7 +24,6 @@ class Engine {
   vector<Card> cards_used;
   vector<Player> players;
   Card played_card;
-  bool responding = false;
 
   const int NUM_PLAYERS = 2;
   const int MAX_HEALTH = 3;
@@ -36,13 +35,15 @@ class Engine {
   Player& GetOpponent(int pos);
   void Dodge();
   void PlayCard(Card& card);
+  void PlayAction();
+  void SwitchPlayer();
+  void UnableToDodge();
 
   int current_player = 0;
   int previous_player = 0;
+  bool responding = false;
   vector<Card> deck;
   Card discard;
-
-  void PlayAction();
 };
 
 }

@@ -21,6 +21,7 @@ class Player {
   void RemoveCard(mylibrary::Card& card);
   int GetPosition();
   int GetHealth();
+  void SetHealth(int new_health);
 
   std::vector<mylibrary::Card> hand;
 

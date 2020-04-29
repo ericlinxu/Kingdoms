@@ -19,7 +19,7 @@ void Player::DrawCards(mylibrary::Card& card) {
 }
 
 bool Player::PlayCard(mylibrary::Card& card, bool responding) {
-  if (responding) {
+  if (!responding) {
     if (card.GetName() == "hit") {
       RemoveCard(card);
       return true;
@@ -56,5 +56,9 @@ int Player::GetPosition() {
 
 int Player::GetHealth() {
   return health;
+}
+
+void Player::SetHealth(int new_health) {
+  health = new_health;
 }
 }  // namespace mylibrary

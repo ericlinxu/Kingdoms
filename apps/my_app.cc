@@ -218,6 +218,12 @@ void myapp::MyApp::DrawTooManyCardsNote(bool run) {
 void myapp::MyApp::DrawGeneralInfo() {
   cinder::vec2 location = {340, 30};
   cinder::gl::draw(end, location);
+
+  Color color = {1, 1, 1};
+  cinder::ivec2 size = {170, 24};
+  location = {120, 80};
+  PrintText("Cards in Deck: " + std::to_string(engine.GetDeckSize())
+            , color, size, location);
 }
 
 void myapp::MyApp::DrawGameOver() {

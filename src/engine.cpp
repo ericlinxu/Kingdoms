@@ -143,5 +143,8 @@ Player& Engine::GetOpponent(int pos) {
   return players[0];
 }
 
+int Engine::GetDeckSize() {
+  return deck.size();
+}
 
 }

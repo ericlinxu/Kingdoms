@@ -22,6 +22,7 @@ class Engine {
   vector<Card> cards_used;
   vector<Player> players;
   Card played_card;
+  vector<Card> deck;
 
   const int NUM_PLAYERS = 2;
   const int MAX_HEALTH = 3;
@@ -30,8 +31,6 @@ class Engine {
 
  public:
   Engine();
-  Player& GetPlayer(int pos);
-  Player& GetOpponent(int pos);
   void PlayCard(Card& card);
   void PlayAction();
   void SwitchPlayer();
@@ -40,13 +39,16 @@ class Engine {
   void CheckEndGame();
   void Save();
 
+  Player& GetPlayer(int pos);
+  Player& GetOpponent(int pos);
+  int GetDeckSize();
+
   int current_player = 0;
   bool responding = false;
   bool end_round = false;
   bool too_many_cards = false;
   bool end_game = false;
   bool game_over = false;
-  vector<Card> deck;
   Card discard;
 };
 

@@ -24,7 +24,11 @@ Card::Card() {
 }
 
 void Card::reset() {
-  Card();
+  health = 0;
+  number = 0;
+  name = "";
+  match = "";
+  image = "";
 }
 
 int Card::GetHealth() {

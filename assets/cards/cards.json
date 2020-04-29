@@ -5,7 +5,7 @@
       "health": -1,
       "match": "dodge",
       "number": 30,
-      "image": "cards/hit.png"
+      "image": "cards/hit.jpeg"
     },
     {
       "name": "dodge",

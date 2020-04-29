@@ -24,7 +24,6 @@ class MyApp : public cinder::app::App {
   void mouseDown(cinder::app::MouseEvent) override;
 
  private:
-
   void DrawBackground() const;
   void DrawCurrentPlayer(mylibrary::Player& current);
   void DrawOpponent();
@@ -32,6 +31,7 @@ class MyApp : public cinder::app::App {
   void DrawTurn(int position);
   void DrawTooManyCardsNote(bool run);
   void DrawGeneralInfo();
+  void DrawGameOver();
   void GenerateBounds(std::vector<int>& coords);
 
   const int num_players = 2;

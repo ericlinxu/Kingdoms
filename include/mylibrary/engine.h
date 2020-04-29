@@ -19,7 +19,6 @@ class Engine {
  private:
   void CreateDeck();
   void DistributeCards();
-  void CheckEndGame();
   vector<Card> cards_used;
   vector<Player> players;
   Card played_card;
@@ -38,11 +37,14 @@ class Engine {
   void SwitchPlayer();
   void UnableToDodge();
   void EndRound(Card& card);
+  void CheckEndGame();
 
   int current_player = 0;
   bool responding = false;
   bool end_round = false;
   bool too_many_cards = false;
+  bool end_game = false;
+  bool game_over = false;
   vector<Card> deck;
   Card discard;
 };

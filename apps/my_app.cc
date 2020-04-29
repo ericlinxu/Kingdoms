@@ -26,12 +26,20 @@ void MyApp::setup() {
 }
 
 void MyApp::update() {
-  engine.PlayAction();
+  if (!engine.end_game) {
+    engine.PlayAction();
+  }
+  engine.CheckEndGame();
 }
 
 void MyApp::draw() {
   cinder::gl::enableAlphaBlending();
   cinder::gl::clear();
+
+  if (engine.game_over) {
+    DrawGameOver();
+    return;
+  }
 
   if (engine.responding) {
     mylibrary::Player opponent = engine.GetOpponent(engine.current_player);
@@ -42,7 +50,11 @@ void MyApp::draw() {
     DrawTurn(engine.current_player + 1);
   }
   DrawOpponent();
-  DrawTooManyCardsNote(engine.too_many_cards);
+
+  if (!engine.end_game) {
+    DrawTooManyCardsNote(engine.too_many_cards);
+  }
+
   DrawPlayedCard();
   DrawGeneralInfo();
   DrawBackground();
@@ -70,7 +82,9 @@ void MyApp::mouseDown(MouseEvent event) {
     //Coordinates for the End button
     if (event.getX() >= 340 && event.getY() >= 30 && event.getY() <= 130
         && event.getX() <= 440) {
-      if (engine.discard.GetName() != "hit") {
+      if (engine.end_game) {
+        engine.game_over = true;
+      } else if (engine.discard.GetName() != "hit") {
         if (current_player.hand.size() > current_player.GetMaxCards()) {
           engine.end_round = true;
           engine.too_many_cards = true;
@@ -199,6 +213,10 @@ void myapp::MyApp::DrawTooManyCardsNote(bool run) {
 void myapp::MyApp::DrawGeneralInfo() {
   cinder::vec2 location = {340, 30};
   cinder::gl::draw(end, location);
+}
+
+void myapp::MyApp::DrawGameOver() {
+  cinder::gl::clear(Color(0, 0, 0));
 }
 
 /**

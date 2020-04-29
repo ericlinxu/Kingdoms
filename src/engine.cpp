@@ -47,6 +47,11 @@ void Engine::PlayAction() {
   Player& player = GetPlayer(current_player);
   Player& opponent = GetOpponent(current_player);
 
+  //Checks if deck needs to be re-created
+  if (deck.empty()) {
+    CreateDeck();
+  }
+
   //Checks whether player needs to draw cards at the start of the round
   if (start_of_round) {
     start_of_round = false;
@@ -109,7 +114,15 @@ void Engine::UnableToDodge() {
 }
 
 void Engine::CheckEndGame() {
-
+  for (Player& player : players) {
+    if (player.GetHealth() == 0) {
+      end_game = true;
+      current_player = player.GetPosition();
+      if (player.Save(played_card)) {
+        end_game = false;
+      }
+    }
+  }
 }
 
 Player& Engine::GetPlayer(int pos) {

@@ -17,4 +17,7 @@ their rounds
 1. Added basic UI that is synced with engine
 2. Added more information to Card and Player classes
 
+####4/28/20
+1. Working on the back-end logic
+2. Syncing the back-end and front-end as back-end is being updated
 ---

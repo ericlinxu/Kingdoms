@@ -35,14 +35,17 @@ class MyApp : public cinder::app::App {
   void GenerateBounds(std::vector<int>& coords);
 
   const int num_players = 2;
+  bool game_over = false;
   mylibrary::Engine engine;
   std::vector<std::vector<int>> bounds;
   cinder::gl::Texture2dRef background = cinder::gl::Texture2d::create(
-      loadImage( loadAsset("background.png")));
+      loadImage( loadAsset("backgrounds/war3.jpeg")));
   cinder::gl::Texture2dRef health = cinder::gl::Texture2d::create(
       loadImage( loadAsset("health.png")));
   cinder::gl::Texture2dRef end = cinder::gl::Texture2d::create(
       loadImage( loadAsset("end.png")));
+  cinder::gl::Texture2dRef ending_screen = cinder::gl::Texture2d::create(
+      loadImage( loadAsset("backgrounds/war.jpeg")));
 };
 
 }  // namespace myapp

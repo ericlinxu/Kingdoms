@@ -48,7 +48,6 @@ class Engine {
   bool end_round = false;
   bool too_many_cards = false;
   bool end_game = false;
-  bool game_over = false;
   Card discard;
 };
 

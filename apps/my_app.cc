@@ -38,7 +38,7 @@ void MyApp::draw() {
   cinder::gl::enableAlphaBlending();
   cinder::gl::clear();
 
-  if (engine.game_over) {
+  if (game_over) {
     DrawGameOver();
     return;
   }
@@ -88,7 +88,7 @@ void MyApp::mouseDown(MouseEvent event) {
     if (event.getX() >= 340 && event.getY() >= 30 && event.getY() <= 130
         && event.getX() <= 440) {
       if (engine.end_game) {
-        engine.game_over = true;
+        game_over = true;
       } else if (engine.discard.GetName() != "hit") {
         if (current_player.hand.size() > current_player.GetMaxCards()) {
           engine.end_round = true;
@@ -227,7 +227,13 @@ void myapp::MyApp::DrawGeneralInfo() {
 }
 
 void myapp::MyApp::DrawGameOver() {
-  cinder::gl::clear(Color(0, 0, 0));
+  Color color = {1, 1, 1};
+  cinder::ivec2 size = {200, 48};
+  PrintText("Player " + std::to_string(engine.current_player)
+            + " Won!!!!\nGame Over!!!!", color, size, getWindowCenter());
+
+  cinder::gl::color(cinder::Colorf::white());
+  cinder::gl::draw(ending_screen);
 }
 
 /**

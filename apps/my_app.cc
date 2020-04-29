@@ -25,7 +25,9 @@ void MyApp::setup() {
   cinder::gl::enableDepthRead();
 }
 
-void MyApp::update() {}
+void MyApp::update() {
+  engine.PlayAction();
+}
 
 void MyApp::draw() {
   cinder::gl::enableAlphaBlending();
@@ -33,6 +35,7 @@ void MyApp::draw() {
   DrawCurrentPlayer(engine.GetPlayer(engine.current_player));
   DrawOpponent();
   DrawPlayedCard();
+  DrawGeneralInfo();
   DrawBackground();
 }
 
@@ -40,16 +43,17 @@ void MyApp::keyDown(KeyEvent event) {}
 
 void MyApp::mouseDown(MouseEvent event) {
   mylibrary::Player current_player = engine.GetPlayer(engine.current_player);
-  if (event.isRightDown()) {
+  if (event.isLeftDown()) {
     for (int i = 0; i < current_player.hand.size(); i++) {
-      if (event.getPos().x >= bounds[i]["coordinates"][0] &&
-          event.getPos().y >= bounds[i]["coordinates"][1] &&
-          event.getPos().x <= bounds[i]["coordinates"][2] &&
-          event.getPos().y <= bounds[i]["coordinates"][3]) {
+      if (event.getX() >= bounds[i][0] &&
+          event.getY() >= bounds[i][1] &&
+          event.getX() <= bounds[i][2] &&
+          event.getY() <= bounds[i][3]) {
         engine.PlayCard(current_player.hand[i]);
-        break;
       }
     }
+  } else {
+    return;
   }
 }
 
@@ -94,7 +98,7 @@ void myapp::MyApp::DrawCurrentPlayer(mylibrary::Player& current) {
     coords.push_back(location.y);
     coords.push_back(location.x + image->getSize().x);
     coords.push_back(location.y + image->getSize().y);
-    GenerateBounds(coords, i);
+    GenerateBounds(coords);
 
     location = {location.x - 110, location.y};
   }
@@ -118,7 +122,7 @@ void myapp::MyApp::DrawCurrentPlayer(mylibrary::Player& current) {
 }
 
 void myapp::MyApp::DrawOpponent() {
-  mylibrary::Player opponent = engine.GetOpponent(0);
+  mylibrary::Player opponent = engine.GetOpponent(engine.current_player);
   Color color = {1, 1, 1};
   cinder::ivec2 size = {130, 70};
   cinder::vec2 loc = {680, 80};
@@ -128,29 +132,31 @@ void myapp::MyApp::DrawOpponent() {
 }
 
 void myapp::MyApp::DrawPlayedCard() {
-  if (engine.played_card.GetName().empty()) {
+  if (engine.discard.GetName().empty()) {
     Color color = {1, 1, 1};
     cinder::ivec2 size = {190, 24};
     PrintText("No Cards Played", color, size, getWindowCenter());
   } else {
     cinder::ivec2 location = {350, 300};
     cinder::gl::Texture2dRef image = cinder::gl::Texture2d::create(
-        loadImage( loadAsset(engine.played_card.GetImage())));
+        loadImage( loadAsset(engine.discard.GetImage())));
     cinder::gl::draw(image, location);
 
     Color color = {1, 1, 1};
-    cinder::ivec2 size = {100, 24};
-    PrintText("Played Card", color, size, getWindowCenter());
+    cinder::ivec2 size = {130, 24};
+    location = {400, 270};
+    PrintText("Played Card", color, size, location);
   }
 }
 
 void myapp::MyApp::DrawGeneralInfo() {
-
+  cinder::vec2 location = {350, 30};
+  cinder::gl::draw(end, location);
 }
 
 /**
  * Gets the bounds of each of the cards the player has on the UI
- * Puts these bounds into a json object in the form of [a, b, c, d]
+ * Coords put the bounds of an image into a vector in the form of [a, b, c, d]
  *
  *            (a,b)P++++++++     P stands for Point
  *                 +       +
@@ -158,15 +164,11 @@ void myapp::MyApp::DrawGeneralInfo() {
  *                 ++++++++P(c,d)
  *
  * @param coords: vector of coordinates for the current image
- * @param index: index of the current image so it can match with the index of
- *               the card in the hand on the current player
  *
  * @note This is mostly used for the MouseDown(Event) method to locate whether
  *       or not the user is pressing on the image
  */
-void myapp::MyApp::GenerateBounds(std::vector<int> coords, int index) {
-  for (int j = 0; j < 4; j++) {
-    bounds[std::to_string(index)]["coordinates"][j] = coords[j];
-  }
+void myapp::MyApp::GenerateBounds(std::vector<int>& coords) {
+  bounds.push_back(coords);
 }
 }

@@ -30,15 +30,17 @@ class MyApp : public cinder::app::App {
   void DrawOpponent();
   void DrawPlayedCard();
   void DrawGeneralInfo();
-  void GenerateBounds(std::vector<int> coords, int index);
+  void GenerateBounds(std::vector<int>& coords);
 
   const int num_players = 2;
   mylibrary::Engine engine;
-  nlohmann::json bounds;
+  std::vector<std::vector<int>> bounds;
   cinder::gl::Texture2dRef background = cinder::gl::Texture2d::create(
       loadImage( loadAsset("background.png")));
   cinder::gl::Texture2dRef health = cinder::gl::Texture2d::create(
       loadImage( loadAsset("health.png")));
+  cinder::gl::Texture2dRef end = cinder::gl::Texture2d::create(
+      loadImage( loadAsset("end.png")));
 };
 
 }  // namespace myapp

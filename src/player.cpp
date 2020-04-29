@@ -10,10 +10,6 @@ Player::Player(int player_health, int pos) {
   max_cards = player_health;
 }
 
-void Player::ReceiveHand(std::vector<mylibrary::Card>& cards) {
-  hand = cards;
-}
-
 void Player::DrawCards(mylibrary::Card& card) {
   hand.push_back(card);
 }
@@ -48,6 +44,15 @@ void Player::RemoveCard(mylibrary::Card& card) {
       break;
     }
   }
+}
+
+bool Player::Save(Card& card) {
+  if (card.GetName() == "heal") {
+    RemoveCard(card);
+    SetHealth(GetHealth() + 1);
+    return true;
+  }
+  return false;
 }
 
 int Player::GetPosition() {

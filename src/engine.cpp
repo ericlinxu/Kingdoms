@@ -22,9 +22,6 @@ Engine::Engine() {
   //Setup
   CreateDeck();
   DistributeCards();
-
-  //Start Game
-  //PlayRounds();
 }
 
 void Engine::CreateDeck() {
@@ -46,28 +43,19 @@ void Engine::DistributeCards() {
   }
 }
 
-void Engine::PlayRounds() {
-  if (deck.empty()) {
-    CreateDeck();
-  }
+void Engine::PlayAction() {
+  Player& player = GetPlayer(current_player);
+  Player& opponent = GetOpponent(current_player);
 
-  for (Player& player : players) {
-    current_player = player.GetPosition();
-    //Each player draws specific amount of cards at the beginning of their round
-    //Amount of cards drawn can be changed in the header file
+  //Checks whether player needs to draw cards at the start of the round
+  if (start_of_round) {
+    start_of_round = false;
     for (int i = 0; i < DRAW_CARDS; i++) {
       player.DrawCards(deck[0]);
       deck.erase(deck.begin());
     }
-
-    responding = false;
   }
-  //PlayRounds();
-}
 
-void Engine::PlayAction() {
-  Player& player = GetPlayer(current_player);
-  Player& opponent = GetOpponent(current_player);
   if (responding) {
     if (opponent.PlayCard(played_card, responding)) {
       responding = false;
@@ -89,22 +77,23 @@ void Engine::PlayAction() {
   }
 }
 
-void Engine::Dodge() {
-  responding = true;
-  current_player = GetOpponent(previous_player).GetPosition();
-  Player player = GetPlayer(current_player);
-  if (player.PlayCard(played_card, responding)) {
-    discard = played_card;
-    played_card.reset();
-    current_player = previous_player;
-  }
-}
-
 void Engine::PlayCard(Card& card) {
   played_card = card;
 }
 
+void Engine::EndRound(Card& card) {
+  Player& player = GetPlayer(current_player);
+  player.RemoveCard(card);
+  if (player.hand.size() <= player.GetMaxCards()) {
+    too_many_cards = false;
+    end_round = false;
+    SwitchPlayer();
+  }
+}
+
 void Engine::SwitchPlayer() {
+  start_of_round = true;
+  discard.reset();
   if (current_player == 0) {
     current_player = 1;
   } else {

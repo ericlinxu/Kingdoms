@@ -42,6 +42,7 @@ void MyApp::draw() {
     DrawTurn(engine.current_player + 1);
   }
   DrawOpponent();
+  DrawTooManyCardsNote(engine.too_many_cards);
   DrawPlayedCard();
   DrawGeneralInfo();
   DrawBackground();
@@ -56,18 +57,26 @@ void MyApp::mouseDown(MouseEvent event) {
   }
   if (event.isLeftDown()) {
     for (int i = 0; i < current_player.hand.size(); i++) {
-      if (event.getX() >= bounds[i][0] &&
-          event.getY() >= bounds[i][1] &&
-          event.getX() <= bounds[i][2] &&
-          event.getY() <= bounds[i][3]) {
-        engine.PlayCard(current_player.hand[i]);
+      if (event.getX() >= bounds[i][0] && event.getY() >= bounds[i][1] &&
+          event.getX() <= bounds[i][2] && event.getY() <= bounds[i][3]) {
+        if (engine.end_round) {
+          engine.EndRound(current_player.hand[i]);
+        } else {
+          engine.PlayCard(current_player.hand[i]);
+        }
       }
     }
+
     //Coordinates for the End button
     if (event.getX() >= 340 && event.getY() >= 30 && event.getY() <= 130
         && event.getX() <= 440) {
       if (engine.discard.GetName() != "hit") {
-        engine.SwitchPlayer();
+        if (current_player.hand.size() > current_player.GetMaxCards()) {
+          engine.end_round = true;
+          engine.too_many_cards = true;
+        } else {
+          engine.SwitchPlayer();
+        }
       } else {
         engine.UnableToDodge();
       }
@@ -142,7 +151,7 @@ void myapp::MyApp::DrawCurrentPlayer(mylibrary::Player& current) {
 void myapp::MyApp::DrawTurn(int position) {
   Color color = {1, 1, 1};
   cinder::vec2 size = {150, 24};
-  cinder::vec2 loc = {100, 630};
+  cinder::vec2 loc = {100, 580};
   PrintText("Player " + std::to_string(position) + "'s Turn"
       , color, size, loc);
 }
@@ -173,6 +182,17 @@ void myapp::MyApp::DrawPlayedCard() {
     cinder::ivec2 size = {130, 24};
     location = {390, 270};
     PrintText("Played Card", color, size, location);
+  }
+}
+
+void myapp::MyApp::DrawTooManyCardsNote(bool run) {
+  if (run) {
+    mylibrary::Player& player = engine.GetPlayer(engine.current_player);
+    Color color = {1, 0, 0};
+    cinder::ivec2 size = {230, 24};
+    cinder::ivec2 location = {390, 400};
+    PrintText("Please discard " + std::to_string(player.hand.size()
+              - player.GetMaxCards()) + " card(s)", color, size, location);
   }
 }
 

@@ -20,10 +20,11 @@ class Engine {
   void CreateDeck();
   void DistributeCards();
   void PlayRounds();
-  vector<mylibrary::Card> cards_used;
-  vector<mylibrary::Player> players;
-  //mylibrary::Card played_card;
-
+  void CheckEndGame();
+  vector<Card> cards_used;
+  vector<Player> players;
+  Card played_card;
+  bool responding = false;
 
   const int NUM_PLAYERS = 2;
   const int MAX_HEALTH = 3;
@@ -31,9 +32,17 @@ class Engine {
 
  public:
   Engine();
-  mylibrary::Player& GetPlayer(int pos);
+  Player& GetPlayer(int pos);
+  Player& GetOpponent(int pos);
+  void Dodge();
+  void PlayCard(Card& card);
+
   int current_player = 0;
-  vector<mylibrary::Card> deck;
+  int previous_player = 0;
+  vector<Card> deck;
+  Card discard;
+
+  void PlayAction();
 };
 
 }

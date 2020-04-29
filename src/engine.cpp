@@ -13,10 +13,10 @@ namespace mylibrary {
 
 Engine::Engine() {
   for (int i = 0; i < NUM_PLAYERS; i++) {
-    mylibrary::Player player(MAX_HEALTH, i);
+    Player player(MAX_HEALTH, i);
     players.push_back(player);
   }
-  cards_used = mylibrary::LoadCards(
+  cards_used = LoadCards(
       cinder::app::getAssetPath("cards/cards.json").string());
 
   //Setup
@@ -28,7 +28,7 @@ Engine::Engine() {
 }
 
 void Engine::CreateDeck() {
-  for (mylibrary::Card card : cards_used) {
+  for (Card card : cards_used) {
     for (int j = 0; j < card.GetNumber(); j++) {
       deck.push_back(card);
     }
@@ -38,7 +38,7 @@ void Engine::CreateDeck() {
 }
 
 void Engine::DistributeCards() {
-  for (mylibrary::Player& player : players) {
+  for (Player& player : players) {
     for (int i = 0; i < MAX_HEALTH; i++) {
       player.DrawCards(deck[0]);
       deck.erase(deck.begin());
@@ -47,7 +47,11 @@ void Engine::DistributeCards() {
 }
 
 void Engine::PlayRounds() {
-  for (mylibrary::Player& player : players) {
+  if (deck.empty()) {
+    CreateDeck();
+  }
+
+  for (Player& player : players) {
     current_player = player.GetPosition();
     //Each player draws specific amount of cards at the beginning of their round
     //Amount of cards drawn can be changed in the header file
@@ -56,11 +60,52 @@ void Engine::PlayRounds() {
       deck.erase(deck.begin());
     }
 
+    responding = false;
+  }
+  //PlayRounds();
+}
+
+void Engine::PlayAction() {
+  Player player = GetPlayer(previous_player);
+  if (player.PlayCard(played_card, responding)) {
+    discard = played_card;
+    if (discard.GetName() == "hit") {
+      Dodge();
+      responding = false;
+    }
+  } else {
+    played_card.reset();
   }
 }
 
-mylibrary::Player& Engine::GetPlayer(int pos) {
+void Engine::Dodge() {
+  responding = true;
+  current_player = GetOpponent(previous_player).GetPosition();
+  Player player = GetPlayer(current_player);
+  if (player.PlayCard(played_card, responding)) {
+    discard = played_card;
+    played_card.reset();
+  }
+}
+
+void Engine::PlayCard(Card& card) {
+  played_card = card;
+}
+
+void Engine::CheckEndGame() {
+
+}
+
+Player& Engine::GetPlayer(int pos) {
   return players[pos];
 }
+
+Player& Engine::GetOpponent(int pos) {
+  if (pos == 0) {
+    return players[1];
+  }
+  return players[0];
+}
+
 
 }

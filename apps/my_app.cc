@@ -26,10 +26,12 @@ void MyApp::setup() {
 }
 
 void MyApp::update() {
-  if (!engine.end_game) {
+  if (engine.end_game) {
+    engine.Save();
+  } else {
     engine.PlayAction();
+    engine.CheckEndGame();
   }
-  engine.CheckEndGame();
 }
 
 void MyApp::draw() {
@@ -73,6 +75,9 @@ void MyApp::mouseDown(MouseEvent event) {
           event.getX() <= bounds[i][2] && event.getY() <= bounds[i][3]) {
         if (engine.end_round) {
           engine.EndRound(current_player.hand[i]);
+        } else if (engine.discard.GetName() == "hit" &&
+                   current_player.hand[i].GetName() != "dodge") {
+          return;
         } else {
           engine.PlayCard(current_player.hand[i]);
         }

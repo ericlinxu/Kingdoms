@@ -38,6 +38,7 @@ class Engine {
   void UnableToDodge();
   void EndRound(Card& card);
   void CheckEndGame();
+  void Save();
 
   int current_player = 0;
   bool responding = false;

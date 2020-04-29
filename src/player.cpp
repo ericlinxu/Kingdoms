@@ -25,11 +25,7 @@ bool Player::PlayCard(mylibrary::Card& card, bool responding) {
       return true;
     }
   } else {
-    if (card.GetName() == "heal" && health == 0) {
-      RemoveCard(card);
-      health += card.GetHealth();
-      return true;
-    } else if (card.GetName() == "dodge") {
+    if (card.GetName() == "dodge") {
       RemoveCard(card);
       return true;
     }
@@ -49,7 +45,7 @@ void Player::RemoveCard(mylibrary::Card& card) {
 bool Player::Save(Card& card) {
   if (card.GetName() == "heal") {
     RemoveCard(card);
-    SetHealth(GetHealth() + 1);
+    SetHealth( 1);
     return true;
   }
   return false;

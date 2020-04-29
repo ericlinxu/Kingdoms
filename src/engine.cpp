@@ -118,10 +118,17 @@ void Engine::CheckEndGame() {
     if (player.GetHealth() == 0) {
       end_game = true;
       current_player = player.GetPosition();
-      if (player.Save(played_card)) {
-        end_game = false;
-      }
+      return;
     }
+  }
+}
+
+void Engine::Save() {
+  if (GetPlayer(current_player).Save(played_card)) {
+    discard = played_card;
+    played_card.reset();
+    current_player = GetOpponent(current_player).GetPosition();
+    end_game = false;
   }
 }
 

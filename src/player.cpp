@@ -58,7 +58,12 @@ int Player::GetHealth() {
   return health;
 }
 
+int Player::GetMaxCards() {
+  return max_cards;
+}
+
 void Player::SetHealth(int new_health) {
+  max_cards = new_health;
   health = new_health;
 }
 }  // namespace mylibrary

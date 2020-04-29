@@ -10,7 +10,7 @@ namespace mylibrary {
 class Player {
  private:
   int health, max_cards, position;
-  const int MAX_HEALTH = 3;
+  int MAX_HEALTH = 3;
 
 
  public:
@@ -21,10 +21,10 @@ class Player {
   void RemoveCard(mylibrary::Card& card);
   int GetPosition();
   int GetHealth();
+  int GetMaxCards();
   void SetHealth(int new_health);
 
   std::vector<mylibrary::Card> hand;
-
 };
 
 }  // namespace mylibrary

@@ -20,4 +20,6 @@ their rounds
 ####4/28/20
 1. Working on the back-end logic
 2. Syncing the back-end and front-end as back-end is being updated
+3. Accomplished logic for when opponent has to iteract with current player's
+card played (Key part to game solved. Had to re-think logic 3 times)
 ---

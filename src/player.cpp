@@ -21,7 +21,7 @@ bool Player::PlayCard(mylibrary::Card& card, bool responding) {
       return true;
     } else if (card.GetName() == "heal" && health < MAX_HEALTH) {
       RemoveCard(card);
-      health += card.GetHealth();
+      SetHealth(health + card.GetHealth());
       return true;
     }
   } else {

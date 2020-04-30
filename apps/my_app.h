@@ -1,4 +1,4 @@
-// Copyright (c) 2020 CS126SP20. All rights reserved.
+// Copyright (c) 2020 [Eric Xu]. All rights reserved.
 
 #ifndef FINALPROJECT_APPS_MYAPP_H_
 #define FINALPROJECT_APPS_MYAPP_H_
@@ -34,10 +34,13 @@ class MyApp : public cinder::app::App {
   void DrawGameOver();
   void GenerateBounds(std::vector<int>& coords);
 
-  const int num_players = 2;
-  bool game_over = false;
   mylibrary::Engine engine;
+  //Whether or not game is over
+  bool game_over = false;
+  //Bounds of current player's cards
   std::vector<std::vector<int>> bounds;
+
+  //Images for UI
   cinder::gl::Texture2dRef background = cinder::gl::Texture2d::create(
       loadImage( loadAsset("backgrounds/war3.jpeg")));
   cinder::gl::Texture2dRef health = cinder::gl::Texture2d::create(

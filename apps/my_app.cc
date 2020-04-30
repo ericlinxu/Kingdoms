@@ -1,4 +1,4 @@
-// Copyright (c) 2020 [Your Name]. All rights reserved.
+// Copyright (c) 2020 [Eric Xu]. All rights reserved.
 
 #include "my_app.h"
 
@@ -64,6 +64,12 @@ void MyApp::draw() {
 
 void MyApp::keyDown(KeyEvent event) {}
 
+/**
+ * Detects when the mouse key is pressed
+ * For my method, only the left mouse key will be used to detect actions for
+ * pressing the cards and end round button
+ * @param event
+ */
 void MyApp::mouseDown(MouseEvent event) {
   mylibrary::Player current_player = engine.GetPlayer(engine.current_player);
   if (engine.responding) {
@@ -103,7 +109,15 @@ void MyApp::mouseDown(MouseEvent event) {
   }
 }
 
-//Taken from Snake
+/**
+ * Taken from Snake
+ * Prints Text out in a standard from
+ * @tparam C
+ * @param text: Text to draw out
+ * @param color: Color of text
+ * @param size: size of the text box
+ * @param loc: location of the text
+ */
 template <typename C>
 void PrintText(const string& text, const C& color, const cinder::ivec2& size,
                const cinder::vec2& loc) {
@@ -124,11 +138,18 @@ void PrintText(const string& text, const C& color, const cinder::ivec2& size,
   cinder::gl::draw(texture, locp);
 }
 
+/**
+ * Draws the background while playing game
+ */
 void myapp::MyApp::DrawBackground() const {
   cinder::gl::color(cinder::Colorf::white());
   cinder::gl::draw(background);
 }
 
+/**
+ * Draws the information for the current player
+ * @param current: Current Player
+ */
 void myapp::MyApp::DrawCurrentPlayer(mylibrary::Player& current) {
   //Cards to show
   cinder::vec2 location = {450, 650};
@@ -167,6 +188,10 @@ void myapp::MyApp::DrawCurrentPlayer(mylibrary::Player& current) {
   PrintText("My Health", color, size, loc);
 }
 
+/**
+ * Draws the text for which player's turn it is
+ * @param position: either player 1 or 2
+ */
 void myapp::MyApp::DrawTurn(int position) {
   Color color = {1, 1, 1};
   cinder::vec2 size = {150, 24};
@@ -175,6 +200,9 @@ void myapp::MyApp::DrawTurn(int position) {
       , color, size, loc);
 }
 
+/**
+ * Draws the information for the opponent of the current player
+ */
 void myapp::MyApp::DrawOpponent() {
   mylibrary::Player opponent = engine.GetOpponent(engine.current_player);
   Color color = {1, 1, 1};
@@ -185,6 +213,9 @@ void myapp::MyApp::DrawOpponent() {
     , color, size, loc);
 }
 
+/**
+ * Draws the card that was played by the current player in the center of the UI
+ */
 void myapp::MyApp::DrawPlayedCard() {
   if (engine.discard.GetName().empty()) {
     Color color = {1, 1, 1};
@@ -204,6 +235,11 @@ void myapp::MyApp::DrawPlayedCard() {
   }
 }
 
+/**
+ * Draws the text for the amount of cards the player needs to discard at the
+ * end of the round
+ * @param run: bool stating whether or not the player has too many cards
+ */
 void myapp::MyApp::DrawTooManyCardsNote(bool run) {
   if (run) {
     mylibrary::Player& player = engine.GetPlayer(engine.current_player);
@@ -215,6 +251,9 @@ void myapp::MyApp::DrawTooManyCardsNote(bool run) {
   }
 }
 
+/**
+ * Draws general information for the whole game
+ */
 void myapp::MyApp::DrawGeneralInfo() {
   cinder::vec2 location = {340, 30};
   cinder::gl::draw(end, location);
@@ -226,6 +265,9 @@ void myapp::MyApp::DrawGeneralInfo() {
             , color, size, location);
 }
 
+/**
+ * Draws the Game Over screen after a player wins the game
+ */
 void myapp::MyApp::DrawGameOver() {
   Color color = {1, 1, 1};
   cinder::ivec2 size = {200, 48};

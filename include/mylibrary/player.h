@@ -1,4 +1,4 @@
-// Copyright (c) 2020 [Your Name]. All rights reserved.
+// Copyright (c) 2020 [Eric Xu]. All rights reserved.
 #ifndef FINALPROJECT_MYLIBRARY_EXAMPLE_H_
 #define FINALPROJECT_MYLIBRARY_EXAMPLE_H_
 
@@ -9,7 +9,13 @@ namespace mylibrary {
 
 class Player {
  private:
-  int health, max_cards, position;
+  //Current health
+  int health;
+  //Maximum amount of cards player can currently have
+  int max_cards;
+  //Player's position in the game
+  int position;
+  //Player's maximum allowed health
   int MAX_HEALTH = 3;
 
  public:
@@ -24,7 +30,7 @@ class Player {
   int GetMaxCards();
   void SetHealth(int new_health);
 
-
+  //Player's current hand
   std::vector<mylibrary::Card> hand;
 };
 

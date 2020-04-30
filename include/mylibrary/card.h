@@ -1,6 +1,4 @@
-//
 // Created by Eric Xu on 4/19/20.
-//
 
 #ifndef FINALPROJECT_CARD_H
 #define FINALPROJECT_CARD_H
@@ -12,8 +10,11 @@ namespace mylibrary {
 
 class Card {
  private:
-  int health, number;
-  string name, match, image;
+  int health;
+  int number;
+  string name;
+  string match;
+  string image;
 
  public:
   Card();

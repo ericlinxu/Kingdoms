@@ -28,4 +28,5 @@ card played (Key part to game solved. Had to re-think logic 3 times)
 2. Added an ending screen for when a player wins
 3. Working on making the UI more interesting
 4. Fixed small bugs
+5. Added in proper comments for all the files
 ---

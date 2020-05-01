@@ -1,9 +1,9 @@
 // Created by Eric Xu on 4/19/20.
 
+#include <cinder/app/AppBase.h>
 #include <mylibrary/card.h>
 #include <mylibrary/file_loader.h>
 
-#include <fstream>
 #include <vector>
 
 namespace mylibrary {
@@ -14,7 +14,8 @@ namespace mylibrary {
  * @return vector of cards
  */
 std::vector<mylibrary::Card> LoadCards(const std::string& file_path) {
-  std::ifstream load(file_path);
+  string processed_file_path = cinder::app::getAssetPath(file_path).string();
+  std::ifstream load(processed_file_path);
 
   if(load.fail()) {
     throw std::runtime_error("Unable to open file " + file_path);

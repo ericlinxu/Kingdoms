@@ -21,8 +21,7 @@ Engine::Engine() {
     Player player(MAX_HEALTH, i);
     players.push_back(player);
   }
-  cards_used = LoadCards(
-      cinder::app::getAssetPath("cards/cards.json").string());
+  cards_used = LoadCards("cards/cards.json");
 
   //Setup
   CreateDeck();

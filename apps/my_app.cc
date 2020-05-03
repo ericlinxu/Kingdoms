@@ -112,23 +112,22 @@ void MyApp::mouseDown(MouseEvent event) {
 /**
  * Taken from Snake
  * Prints Text out in a standard from
- * @tparam C
  * @param text: Text to draw out
  * @param color: Color of text
  * @param size: size of the text box
  * @param loc: location of the text
  */
 template <typename C>
-void PrintText(const string& text, const C& color, const cinder::ivec2& size,
-               const cinder::vec2& loc) {
-  cinder::gl::color(color);
+void PrintText(const string& text, const C& text_color, const cinder::ivec2& size,
+               const cinder::vec2& loc, const C& background_color) {
+  cinder::gl::color(cinder::Colorf::white());
 
   auto box = TextBox()
       .alignment(TextBox::CENTER)
       .font(cinder::Font("Arial", 20))
       .size(size)
-      .color(color)
-      .backgroundColor(ColorA(0.502, 0.502, 0.502, 1))
+      .color(text_color)
+      .backgroundColor(background_color)
       .text(text);
 
   const auto box_size = box.getSize();
@@ -170,10 +169,11 @@ void myapp::MyApp::DrawCurrentPlayer(mylibrary::Player& current) {
     location = {location.x - 110, location.y};
   }
 
-  Color color = {1, 1, 1};
+  Color text_color = {1, 1, 1};
   cinder::ivec2 size = {100, 24};
   cinder::vec2 loc = {390, 630};
-  PrintText("My Cards", color, size, loc);
+  Color background_color = {0.54,0.25,0.16};
+  PrintText("My Cards", text_color, size, loc, background_color);
 
   //Health to show
   location = {440, 560};
@@ -182,10 +182,11 @@ void myapp::MyApp::DrawCurrentPlayer(mylibrary::Player& current) {
     location = {location.x - 70, location.y};
   }
 
-  color = {1, 1, 1};
+  text_color = {1, 1, 1};
+  background_color = {0.29,0.14,0.10};
   size = {100, 24};
   loc = {390, 530};
-  PrintText("My Health", color, size, loc);
+  PrintText("My Health", text_color, size, loc, background_color);
 }
 
 /**
@@ -193,11 +194,12 @@ void myapp::MyApp::DrawCurrentPlayer(mylibrary::Player& current) {
  * @param position: either player 1 or 2
  */
 void myapp::MyApp::DrawTurn(int position) {
-  Color color = {1, 1, 1};
+  Color text_color = {1, 1, 1};
+  Color background_color = {0.29,0.14,0.10};
   cinder::vec2 size = {150, 24};
   cinder::vec2 loc = {100, 580};
   PrintText("Player " + std::to_string(position) + "'s Turn"
-      , color, size, loc);
+      , text_color, size, loc, background_color);
 }
 
 /**
@@ -205,33 +207,36 @@ void myapp::MyApp::DrawTurn(int position) {
  */
 void myapp::MyApp::DrawOpponent() {
   mylibrary::Player opponent = engine.GetOpponent(engine.current_player);
-  Color color = {1, 1, 1};
+  Color text_color = {1, 1, 1};
+  Color background_color = {0.84,0.69,0.44};
   cinder::ivec2 size = {130, 70};
   cinder::vec2 loc = {670, 80};
   PrintText("Opponent\nHealth: " + std::to_string(opponent.GetHealth())
     + "\n# of Cards: " + std::to_string(opponent.hand.size())
-    , color, size, loc);
+    , text_color, size, loc, background_color);
 }
 
 /**
  * Draws the card that was played by the current player in the center of the UI
  */
 void myapp::MyApp::DrawPlayedCard() {
+  Color text_color = {0, 0, 0};
+  Color background_color = {0.94,0.91,0.83};
+
   if (engine.discard.GetName().empty()) {
-    Color color = {1, 1, 1};
     cinder::ivec2 size = {190, 24};
     cinder::ivec2 location = {390, 350};
-    PrintText("No Cards Played", color, size, location);
+    PrintText("No Cards Played", text_color, size
+        , location, background_color);
   } else {
     cinder::ivec2 location = {340, 300};
     cinder::gl::Texture2dRef image = cinder::gl::Texture2d::create(
         loadImage( loadAsset(engine.discard.GetImage())));
     cinder::gl::draw(image, location);
 
-    Color color = {1, 1, 1};
     cinder::ivec2 size = {130, 24};
     location = {390, 270};
-    PrintText("Played Card", color, size, location);
+    PrintText("Played Card", text_color, size, location, background_color);
   }
 }
 
@@ -243,11 +248,13 @@ void myapp::MyApp::DrawPlayedCard() {
 void myapp::MyApp::DrawTooManyCardsNote(bool run) {
   if (run) {
     mylibrary::Player& player = engine.GetPlayer(engine.current_player);
-    Color color = {1, 0, 0};
+    Color text_color = {1, 0, 0};
+    Color background_color = {0.64,0,0};
     cinder::ivec2 size = {230, 24};
     cinder::ivec2 location = {390, 400};
     PrintText("Please discard " + std::to_string(player.hand.size()
-              - player.GetMaxCards()) + " card(s)", color, size, location);
+              - player.GetMaxCards()) + " card(s)", text_color, size, location
+                  , background_color);
   }
 }
 
@@ -258,21 +265,24 @@ void myapp::MyApp::DrawGeneralInfo() {
   cinder::vec2 location = {340, 30};
   cinder::gl::draw(end, location);
 
-  Color color = {1, 1, 1};
+  Color text_color = {1, 1, 1};
+  Color background_color = {0.72,0.51,0.32};
   cinder::ivec2 size = {170, 24};
   location = {120, 80};
   PrintText("Cards in Deck: " + std::to_string(engine.GetDeckSize())
-            , color, size, location);
+            , text_color, size, location, background_color);
 }
 
 /**
  * Draws the Game Over screen after a player wins the game
  */
 void myapp::MyApp::DrawGameOver() {
-  Color color = {1, 1, 1};
+  Color text_color = {1, 1, 1};
+  Color background_color = {0.76,0.62,0.52};
   cinder::ivec2 size = {200, 48};
   PrintText("Player " + std::to_string(engine.current_player)
-            + " Won!!!!\nGame Over!!!!", color, size, getWindowCenter());
+            + " Won!!!!\nGame Over!!!!", text_color, size
+            , getWindowCenter(), background_color);
 
   cinder::gl::color(cinder::Colorf::white());
   cinder::gl::draw(ending_screen);

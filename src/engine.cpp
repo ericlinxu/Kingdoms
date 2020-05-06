@@ -202,4 +202,17 @@ int Engine::GetDeckSize() {
   return deck.size();
 }
 
+/**
+ * Get Cards used
+ */
+vector<Card> Engine::GetCardsUsed() {
+  return cards_used;
+}
+
+/**
+ * Get player_card
+ */
+Card Engine::GetPlayedCard() {
+  return played_card;
+}
 }

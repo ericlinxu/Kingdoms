@@ -49,6 +49,8 @@ class Engine {
   Player& GetPlayer(int pos);
   Player& GetOpponent(int pos);
   int GetDeckSize();
+  vector<Card> GetCardsUsed();
+  Card GetPlayedCard();
 
   //Indicates whether the current state of game is for the opponent to respond
   //to the current player

@@ -15,8 +15,8 @@ for me and I will also enjoy this process as this is a project that I am very
 interested in.
 
 The simplified version of the game will consist of two players and each player
-has 3 lives. Each player gets 4 cards that have different abilities at the
-start of the game. Every round, each player gets to draw an additional 2 cards
+has 3 lives. Each player gets 3 cards that have different abilities at the
+start of the game. Every round, each player gets to draw an additional 1 cards
 and are able to use the cards they want to use. The goal of the game is to
 eliminate the other player by getting them to have 0 lives.
 

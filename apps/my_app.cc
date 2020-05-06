@@ -8,7 +8,6 @@
 #include <cinder/Font.h>
 #include <cinder/Text.h>
 
-
 namespace myapp {
 
 using cinder::app::KeyEvent;
@@ -16,7 +15,6 @@ using cinder::app::MouseEvent;
 using cinder::TextBox;
 using cinder::ColorA;
 using cinder::Color;
-
 
 MyApp::MyApp() : engine{} {}
 
@@ -224,7 +222,7 @@ void myapp::MyApp::DrawPlayedCard() {
   Color background_color = {0.94,0.91,0.83};
 
   if (engine.discard.GetName().empty()) {
-    cinder::ivec2 size = {190, 24};
+    cinder::ivec2 size = {170, 24};
     cinder::ivec2 location = {390, 350};
     PrintText("No Cards Played", text_color, size
         , location, background_color);
@@ -249,7 +247,7 @@ void myapp::MyApp::DrawTooManyCardsNote(bool run) {
   if (run) {
     mylibrary::Player& player = engine.GetPlayer(engine.current_player);
     Color text_color = {1, 0, 0};
-    Color background_color = {0.64,0,0};
+    Color background_color = {0.47,0,0};
     cinder::ivec2 size = {230, 24};
     cinder::ivec2 location = {390, 400};
     PrintText("Please discard " + std::to_string(player.hand.size()
@@ -279,7 +277,7 @@ void myapp::MyApp::DrawGeneralInfo() {
 void myapp::MyApp::DrawGameOver() {
   Color text_color = {1, 1, 1};
   Color background_color = {0.76,0.62,0.52};
-  cinder::ivec2 size = {200, 48};
+  cinder::ivec2 size = {160, 48};
   PrintText("Player " + std::to_string(engine.current_player)
             + " Won!!!!\nGame Over!!!!", text_color, size
             , getWindowCenter(), background_color);

@@ -8,7 +8,7 @@
 using mylibrary::Player;
 using mylibrary::Card;
 
-TEST_CASE("Constructor", "[Position][Health][Max Cards][Empty Hand]") {
+TEST_CASE("Player Constructor", "[Position][Health][Max Cards][Empty Hand]") {
   Player player(3, 0);
   REQUIRE(player.GetPosition() == 0);
   REQUIRE(player.GetHealth() == 3);

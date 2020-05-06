@@ -19,6 +19,7 @@ for me and I will also enjoy this process as this is a project that I am very
 interested in.
 
 ##[How to Play]
+1. Use the left mouse key to control your decisions
 1. There are 2 players with 3 health each
 2. Each player has an x amount of cards with different abilities at the start 
 of each round

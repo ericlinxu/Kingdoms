@@ -29,4 +29,19 @@ card played (Key part to game solved. Had to re-think logic 3 times)
 3. Working on making the UI more interesting
 4. Fixed small bugs
 5. Added in proper comments for all the files
+
+####4/30/20
+1. Added files for testing
+2. Finished testing for file_loader.cpp
+3. In the process of writing tests for player.cpp
+
+####5/1/20
+1. Finished testing for player.cpp, card.cpp
+
+####5/2/20
+1. Revised UI
+
+####5/5/20
+1. Added How To Play instructions in README.md
+2. Finished testing for engine.cpp
 ---

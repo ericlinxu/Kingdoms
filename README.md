@@ -32,6 +32,7 @@ defense mode
     1. "Dodge" - Used to dodge "Hit", prevents you from losing 1 health
     2. "Heal" - Only can be used if you are at 0 health after being damaged
     by "hit". This is your last chance to save yourself
+5. Press the red End Round button to end your turn
 6. At the end of each round, if the attacking player has more cards than
 health, the attacking player will have to discard x amount of cards until
 he/she has number of cards equal to health

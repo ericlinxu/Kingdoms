@@ -60,8 +60,6 @@ void MyApp::draw() {
   DrawBackground();
 }
 
-void MyApp::keyDown(KeyEvent event) {}
-
 /**
  * Detects when the mouse key is pressed
  * For my method, only the left mouse key will be used to detect actions for

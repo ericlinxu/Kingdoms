@@ -1,18 +1,19 @@
-# Final Project
+# Final Project: Legend of the Two Kingdoms
 
 [![license](https://img.shields.io/badge/license-MIT-green)](LICENSE)
 
-## Legend of the Two Kingdoms
+Author: Eric Xu - [`ericlx2@illinois.edu`](mailto:ericlx2@illinois.edu)
 
-Author: Eric Xu - [`ericlx2@illinois.edu`](mailto:example@illinois.edu)
+![Image of Game running](https://github.com/CS126SP20/final-project-ericlx2/blob/master/assets/game.png)
+![Image of Ending screen](https://github.com/CS126SP20/final-project-ericlx2/blob/master/assets/ending.png)
 
-### Dependencies
+## Dependencies
 1. Cinder
 2. Nlohmann/JSON
 3. CMake
 4. Catch2
 
-### How to Play
+## How to Play
 1. Use the left mouse key to control your decisions
 1. There are 2 players with 3 health each
 2. Each player has an x amount of cards with different abilities at the start 

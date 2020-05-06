@@ -44,4 +44,5 @@ card played (Key part to game solved. Had to re-think logic 3 times)
 ####5/5/20
 1. Added How To Play instructions in README.md
 2. Finished testing for engine.cpp
+3. Updated PROPOSAL.md
 ---

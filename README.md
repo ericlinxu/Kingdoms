@@ -2,7 +2,7 @@
 
 [![license](https://img.shields.io/badge/license-MIT-green)](LICENSE)
 
-Author: Eric Xu - [`ericlx2@illinois.edu`](mailto:ericlx2@illinois.edu)
+Author: Eric Xu - [`ericlinxu@gmail.com`](mailto:ericlinxu@gmail.com)
 
 ![Image of Game running](https://github.com/CS126SP20/final-project-ericlx2/blob/master/assets/game.png)
 ![Image of Ending screen](https://github.com/CS126SP20/final-project-ericlx2/blob/master/assets/ending.png)
